@@ -1,20 +1,21 @@
 //environment
 window.ProtoEmbed = window.ProtoEmbed || {};
 
-ProtoEmbed.initFrame = function (id, url, mode) {
-  window.onload = function(){
-    document.getElementById("cite").parentNode.removeChild(document.getElementById("cite"));
+ProtoEmbed.initFrame = function (element, url, mode) {
+  if(typeof element == "string"){
+    element = document.getElementById(element);
   }
+  element.removeChild(element.querySelector("blockquote"));
+
   var ResizeService = Oasis.Service.extend({
     initialize: function() {
       this.request('receive', mode).then(function (data) {
-        console.log(data, "initialize")
-        resizeIframe(document.querySelector('#' + id + ' iframe'), data)
+        resizeIframe(element.querySelector("iframe"), data);
       });
     },
     events: {
       resize_frame: function(data){
-        resizeIframe(document.querySelector('#' + id + ' iframe'), data)
+        resizeIframe(element.querySelector("iframe"), data);
       }
     }
   });
@@ -27,11 +28,10 @@ ProtoEmbed.initFrame = function (id, url, mode) {
     }
   });
   sandbox.el.setAttribute("sandbox", "allow-scripts allow-same-origin")
-  console.log(sandbox, "sandbox")
-  document.getElementById(id).append(sandbox.el);
-  document.querySelector('#' + id + ' iframe').style.width = '100%'
-  document.querySelector('#' + id + ' iframe').style.height = 'auto'
-  document.querySelector('#' + id + ' iframe').style.borderWidth = '0px'
+  element.append(sandbox.el);
+  element.querySelector("iframe").style.width = '100%';
+  element.querySelector("iframe").style.height = 'auto';
+  element.querySelector("iframe").style.borderWidth = '0px'
 
   function resizeIframe(obj, data) {
     // console.log(obj, data, "iframe object")
