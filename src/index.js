@@ -31,7 +31,7 @@ ProtoEmbed.initFrame = function(element, url, mode, readMoreEnabled) {
           receive: ResizeService
       }
   });
-  sandbox.el.setAttribute("sandbox", "allow-popups allow-scripts allow-same-origin allow-presentation")
+  sandbox.el.setAttribute("sandbox", "allow-popups allow-scripts allow-same-origin allow-presentation allow-top-navigation")
   element.appendChild(sandbox.el);
   element.querySelector("iframe").style.width = '100%';
   element.querySelector("iframe").style.height = 'auto';
