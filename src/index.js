@@ -1,5 +1,5 @@
 window.ProtoEmbed = window.ProtoEmbed || {};
-ProtoEmbed.initFrame = function(element, url, mode, readMoreEnabled, headerJSON) {
+ProtoEmbed.initFrame = function(element, url, mode, options) {
     if (typeof element == "string") {
         element = document.getElementById(element)
     }
@@ -13,7 +13,7 @@ ProtoEmbed.initFrame = function(element, url, mode, readMoreEnabled, headerJSON)
             setTimeout(function(){
                 that.send("get_size");
             }, 1000);
-            this.request('receive', mode, readMoreEnabled, headerJSON).then(function(data) {
+            this.request('receive', mode, options).then(function(data) {
                 resizeIframe(element.querySelector("iframe"), data)
             })
         },
